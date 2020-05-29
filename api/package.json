@@ -9,6 +9,7 @@
     "apollo-server-micro": "^2.14.1",
     "graphql": "^15.0.0",
     "graphql-iso-date": "^3.6.1",
+    "micro-cors": "^0.1.1",
     "mongoose": "^5.9.16"
   },
   "devDependencies": {
@@ -22,7 +23,7 @@
   },
   "scripts": {
     "build": "tsc -b",
-    "dev": "node -r ts-node/register node_modules/.bin/micro-dev ./src/api/graphql.ts",
+    "dev": "node -r ts-node/register node_modules/.bin/micro-dev -p 4000 ./src/api/graphql.ts",
     "start": "micro ./dist/api/graphql.js"
   }
 }
