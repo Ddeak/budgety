@@ -15,11 +15,14 @@
     "@types/graphql-iso-date": "^3.3.3",
     "@types/mongoose": "^5.7.21",
     "@types/node": "^14.0.5",
+    "micro-dev": "^3.0.0",
     "prettier": "^2.0.5",
+    "ts-node": "^8.10.2",
     "typescript": "^3.9.3"
   },
   "scripts": {
     "build": "tsc -b",
+    "dev": "node -r ts-node/register node_modules/.bin/micro-dev ./src/api/graphql.ts",
     "start": "micro ./dist/api/graphql.js"
   }
 }
