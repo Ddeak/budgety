@@ -37,7 +37,7 @@ export default {
   },
 
   Mutation: {
-    saveNote: async (
+    saveItem: async (
       parent: any,
       {
         name,
@@ -63,7 +63,7 @@ export default {
         throw new ApolloError('Error creating item');
       }
     },
-    deleteNote: async (
+    deleteItem: async (
       parent: any,
       { _id }: { _id: IItem['_id'] },
       { mongoConn }: { mongoConn: mongoose.Connection }

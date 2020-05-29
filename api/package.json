@@ -19,7 +19,7 @@
     "typescript": "^3.9.3"
   },
   "scripts": {
-    "build": "tsc .",
-    "start": "micro"
+    "build": "tsc -b",
+    "start": "micro ./dist/api/graphql.js"
   }
 }
