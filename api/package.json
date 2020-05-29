@@ -1,0 +1,25 @@
+{
+  "name": "budgety-api",
+  "version": "1.0.0",
+  "description": "Api for budgety",
+  "main": "src/api/graphql.ts",
+  "author": "Daniel Deak",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server-micro": "^2.14.1",
+    "graphql": "^15.0.0",
+    "graphql-iso-date": "^3.6.1",
+    "mongoose": "^5.9.16"
+  },
+  "devDependencies": {
+    "@types/graphql-iso-date": "^3.3.3",
+    "@types/mongoose": "^5.7.21",
+    "@types/node": "^14.0.5",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.3"
+  },
+  "scripts": {
+    "build": "tsc .",
+    "start": "micro"
+  }
+}
