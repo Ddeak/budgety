@@ -1,10 +1,13 @@
 import * as React from 'react';
 
+import { useForm } from 'react-hook-form';
+
 import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import TextField from '@material-ui/core/TextField';
-import { useForm } from 'react-hook-form';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
 
 import { IItem } from '../../../types/item';
 
@@ -12,9 +15,13 @@ const useStyles = makeStyles({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
     alignItems: 'center',
-    width: '35rem'
+    minHeight: '5rem'
+  },
+  input: {
+    margin: '0 0.5rem'
   }
 });
 
@@ -33,6 +40,7 @@ const AddItem = ({ createItem }: IPropsType) => {
           id="item-name"
           name="name"
           label="Name"
+          className={classes.input}
           inputRef={register({ required: true })}
         />
         {errors.name && <FormHelperText>Required</FormHelperText>}
@@ -43,6 +51,7 @@ const AddItem = ({ createItem }: IPropsType) => {
           id="item-category"
           name="category"
           label="Category"
+          className={classes.input}
           inputRef={register({ required: true })}
         />
         {errors.category && <FormHelperText>Required</FormHelperText>}
@@ -53,10 +62,15 @@ const AddItem = ({ createItem }: IPropsType) => {
           id="item-price"
           name="price"
           label="Price"
+          className={classes.input}
           inputRef={register({ required: true })}
         />
         {errors.price && <FormHelperText>Required</FormHelperText>}
       </FormControl>
+
+      <IconButton type="submit" color="primary">
+        <AddIcon />
+      </IconButton>
     </form>
   );
 };
