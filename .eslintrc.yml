@@ -1,0 +1,38 @@
+extends:
+  - react-app
+  - airbnb
+  - plugin:jsx-a11y/recommended
+  - plugin:jest/recommended
+  - plugin:eslint-comments/recommended
+  - plugin:import/errors
+  - plugin:import/warnings
+  - plugin:import/typescript
+  - plugin:prettier/recommended
+  - prettier/@typescript-eslint
+  - prettier/react
+
+plugins:
+  - jsx-a11y
+
+rules:
+  # Allow use of JSX outwith .jsx files
+  react/jsx-filename-extension: off
+  # Allow prop spreading
+  react/jsx-props-no-spreading: off
+  # Disallow unused eslint-disable comments
+  eslint-comments/no-unused-disable: error
+  # Enforce a convention in the order of require/import statements
+  import/order: error
+  # Ignore file extensions when importing ts or js files.
+  import/extensions:
+    - error
+    - ignorePacakges:
+        - jsx: never
+        - js: never
+        - ts: never
+        - tsx: never
+  # Allow reassignment of 'state' value when using createReducer from reduxjs/toolkit
+  no-param-reassign:
+    - error
+    - props: true
+      ignorePropertyModificationsFor: ['state']
