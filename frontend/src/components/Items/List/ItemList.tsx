@@ -5,15 +5,14 @@ import { DocumentNode } from 'apollo-boost';
 
 import ItemListView from './ItemListView';
 
-import { ALL_ITEMS_QUERY, DELETE_ITEM_MUTATION } from './queries';
+import { ITEMS_QUERY, DELETE_ITEM_MUTATION } from '../queries';
 
 const ItemList = () => {
-  const [currentQuery] = React.useState<DocumentNode>(ALL_ITEMS_QUERY);
-  const { loading, error, data } = useQuery(currentQuery, {
-    variables: { category: 'test' }
+  const { loading, error, data } = useQuery(ITEMS_QUERY, {
+    variables: { category: null }
   });
   const [deleteItem] = useMutation(DELETE_ITEM_MUTATION, {
-    refetchQueries: [{ query: currentQuery }]
+    refetchQueries: [{ query: ITEMS_QUERY }]
   });
 
   const onDeleteItem = async (_id: string) => {
@@ -23,7 +22,7 @@ const ItemList = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  return <ItemListView items={data.getAllItems} onDeleteItem={onDeleteItem} />;
+  return <ItemListView items={data.getItems} onDeleteItem={onDeleteItem} />;
 };
 
 export default ItemList;

@@ -4,18 +4,19 @@ import { ApolloError } from 'apollo-server-micro';
 
 export default {
   Query: {
-    getAllItems: async (
+    getItems: async (
       parent: any,
-      { limit }: { limit?: number },
+      { category, limit }: { category: IItem['category']; limit?: number },
       { mongoConn }: { mongoConn: mongoose.Connection }
     ): Promise<IItem[]> => {
       const Item: mongoose.Model<IItem> = ItemModel(mongoConn);
       let list: IItem[];
 
+      let query = category ? Item.find({ category }) : Item.find();
+      if (limit) query.limit(limit);
+
       try {
-        list = limit
-          ? await Item.find().limit(limit).exec()
-          : await Item.find().exec();
+        list = await query.exec();
       } catch (err) {
         console.error('> getALlItems error: ', err);
         throw new ApolloError('Error retrieving all items');
@@ -31,22 +32,6 @@ export default {
 
       try {
         return await Item.findById(_id).exec();
-      } catch (err) {
-        console.error('> getItem error: ', err);
-        throw new ApolloError('Error retrieving single item');
-      }
-    },
-    getByCategory: async (
-      parent: any,
-      { category, limit }: { category: IItem['category']; limit?: number },
-      { mongoConn }: { mongoConn: mongoose.Connection }
-    ): Promise<IItem[]> => {
-      const Item: mongoose.Model<IItem> = ItemModel(mongoConn);
-
-      try {
-        return limit
-          ? await Item.find({ category }).limit(limit).exec()
-          : await Item.find({ category }).exec();
       } catch (err) {
         console.error('> getItem error: ', err);
         throw new ApolloError('Error retrieving single item');

@@ -2,9 +2,8 @@ import { gql } from 'apollo-server-micro';
 
 export default gql`
   extend type Query {
-    getAllItems: [Item!]
+    getItems(category: String): [Item!]
     getItem(_id: ID!): Item
-    getByCategory: [Item!]
   }
 
   extend type Mutation {
