@@ -4,6 +4,7 @@ export default gql`
   extend type Query {
     getAllItems: [Item!]
     getItem(_id: ID!): Item
+    getByCategory: [Item!]
   }
 
   extend type Mutation {
