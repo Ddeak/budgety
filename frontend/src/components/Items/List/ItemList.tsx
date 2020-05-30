@@ -1,15 +1,18 @@
 import * as React from 'react';
 
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { DocumentNode } from 'apollo-boost';
 
 import ItemListView from './ItemListView';
 
 import { ITEMS_QUERY, DELETE_ITEM_MUTATION } from '../queries';
 
-const ItemList = () => {
+interface IPropsType {
+  searchCategory?: string;
+}
+
+const ItemList = ({ searchCategory }: IPropsType) => {
   const { loading, error, data } = useQuery(ITEMS_QUERY, {
-    variables: { category: null }
+    variables: { category: searchCategory }
   });
   const [deleteItem] = useMutation(DELETE_ITEM_MUTATION, {
     refetchQueries: [{ query: ITEMS_QUERY }]
