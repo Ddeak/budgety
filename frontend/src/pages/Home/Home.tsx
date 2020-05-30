@@ -8,7 +8,7 @@ import styles from './Home.module.scss';
 const Home = () => {
   return (
     <div className={styles.container}>
-      <Typography variant="h1">Home Page</Typography>
+      <Typography variant="h1">Budgety</Typography>
       <AddItem />
       <ItemList />
     </div>

@@ -13,6 +13,6 @@ describe('Home Page Rendering', () => {
       </ApolloProvider>
     );
 
-    expect(screen.getByText('Home Page')).toBeInTheDocument();
+    expect(screen.getByText('Budgety')).toBeInTheDocument();
   });
 });
