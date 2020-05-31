@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { MongooseFilterQuery } from 'mongoose';
 import dayjs from 'dayjs';
 
 import ItemModel, { IItem } from '../../mongo/models/item';
@@ -14,18 +14,17 @@ export default {
       const Item: mongoose.Model<IItem> = ItemModel(mongoConn);
       let list: IItem[];
       const daysBack = days || -30;
+      console.log('thisfar', daysBack);
 
-      let query = category
-        ? Item.find({
-            category: category.toUpperCase(),
-            created: {
-              $gte: dayjs().add(daysBack, 'day').toDate(),
-            },
-          })
-        : Item.find();
+      let filterQuery: MongooseFilterQuery<IItem> = {
+        created: {
+          $gte: dayjs().add(daysBack, 'day').toDate(),
+        },
+      };
+      if (category) filterQuery.category = category.toUpperCase();
 
       try {
-        list = await query.exec();
+        list = await Item.find(filterQuery).exec();
       } catch (err) {
         console.error('> getALlItems error: ', err);
         throw new ApolloError('Error retrieving all items');
