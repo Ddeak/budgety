@@ -13,14 +13,13 @@ const ItemFilter = ({ setSearchText }: IPropsType) => {
     // Debounce searchText by 600ms
     const timeout = setTimeout(() => setSearchText(categoryText), 600);
     return () => clearTimeout(timeout);
-  }, [categoryText]);
+  }, [categoryText, setSearchText]);
 
   return (
     <TextField
       id="category-search"
       name="category-search"
       label="Category"
-      variant="outlined"
       value={categoryText}
       onChange={e => setCategoryText(e.target.value)}
     />
