@@ -12,7 +12,7 @@ import { IItem } from '../../../types/item';
 
 interface IPropsType {
   loading: boolean;
-  error: ApolloError | undefined;
+  error?: ApolloError;
   items: IItem[];
   onDeleteItem: (id: string) => void;
 }
@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 const ItemListView = ({ loading, error, items, onDeleteItem }: IPropsType) => {
   const classes = useStyles();
 
-  if (loading && !items) return <p>Loading items...</p>;
+  if (loading && !items.length) return <p>Loading items...</p>;
   if (error) return <p>An error occured fetching items.</p>;
 
   return (
@@ -63,7 +63,11 @@ const ItemListView = ({ loading, error, items, onDeleteItem }: IPropsType) => {
           <Typography className={classes.col}>{item.name}</Typography>
           <Typography className={classes.col}>{item.category}</Typography>
           <Typography className={classes.col}>{item.price}</Typography>
-          <IconButton color="primary" onClick={() => onDeleteItem(item._id)}>
+          <IconButton
+            aria-label={`delete item ${item._id}`}
+            color="primary"
+            onClick={() => onDeleteItem(item._id)}
+          >
             <DeleteIcon />
           </IconButton>
         </div>
