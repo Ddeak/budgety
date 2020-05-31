@@ -31,13 +31,15 @@ interface IPropsType {
 
 const AddItem = ({ createItem }: IPropsType) => {
   const classes = useStyles();
-  const { handleSubmit, register, errors } = useForm<IItem>();
+  const { handleSubmit, register, errors, reset } = useForm<IItem>();
+
+  const onValidForm = (data: IItem) => {
+    reset();
+    createItem(data);
+  };
 
   return (
-    <form
-      onSubmit={handleSubmit(data => createItem(data))}
-      className={classes.container}
-    >
+    <form onSubmit={handleSubmit(onValidForm)} className={classes.container}>
       <FormControl error={!!errors.name}>
         <TextField
           id="item-name"

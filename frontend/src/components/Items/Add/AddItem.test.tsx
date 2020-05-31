@@ -46,4 +46,8 @@ it('checks the createItem function is called with the correct values', async () 
     category: 'Category1',
     price: '0.5'
   });
+
+  expect(nameInput).toHaveValue('');
+  expect(categoryInput).toHaveValue('');
+  expect(priceInput).toHaveValue('');
 });
