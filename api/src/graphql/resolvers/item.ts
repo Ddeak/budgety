@@ -14,7 +14,6 @@ export default {
       const Item: mongoose.Model<IItem> = ItemModel(mongoConn);
       let list: IItem[];
       const daysBack = days || -30;
-      console.log('thisfar', daysBack);
 
       let filterQuery: MongooseFilterQuery<IItem> = {
         created: {
