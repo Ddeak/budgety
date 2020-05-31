@@ -57,10 +57,15 @@ export default {
     ): Promise<IItem> => {
       const Item: mongoose.Model<IItem> = ItemModel(mongoConn);
       try {
+        const parsedPrice = Number.parseFloat(price);
+        if (isNaN(parsedPrice)) {
+          throw new ApolloError('Price must be a number');
+        }
+
         const item = await Item.create({
           name,
           category: category.toUpperCase(),
-          price,
+          price: parsedPrice.toFixed(2),
         });
         return item;
       } catch (err) {

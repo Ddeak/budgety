@@ -69,6 +69,7 @@ const AddItem = ({ createItem }: IPropsType) => {
           label="Price"
           className={classes.input}
           type="number"
+          inputProps={{ step: 0.01 }}
           inputRef={register({ required: true })}
         />
         {errors.price && <FormHelperText>Required</FormHelperText>}
