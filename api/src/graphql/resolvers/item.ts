@@ -12,7 +12,9 @@ export default {
       const Item: mongoose.Model<IItem> = ItemModel(mongoConn);
       let list: IItem[];
 
-      let query = category ? Item.find({ category }) : Item.find();
+      let query = category
+        ? Item.find({ category: category.toUpperCase() })
+        : Item.find();
       if (limit) query.limit(limit);
 
       try {
@@ -57,7 +59,7 @@ export default {
       try {
         const item = await Item.create({
           name,
-          category,
+          category: category.toUpperCase(),
           price,
         });
         return item;
