@@ -26,8 +26,7 @@ const Home = () => {
 
   const createItem = (item: IItem) => addItem({ variables: { ...item } });
 
-  const onDeleteItem = async (_id: string) =>
-    deleteItem({ variables: { _id } });
+  const onDeleteItem = (_id: string) => deleteItem({ variables: { _id } });
 
   return (
     <div className={styles.container}>

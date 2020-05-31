@@ -7,7 +7,7 @@ it('renders the AddItem component', () => {
 
   expect(screen.getByRole('textbox', { name: 'Name' })).toBeInTheDocument();
   expect(screen.getByRole('textbox', { name: 'Category' })).toBeInTheDocument();
-  expect(screen.getByRole('textbox', { name: 'Price' })).toBeInTheDocument();
+  expect(screen.getByRole('spinbutton', { name: 'Price' })).toBeInTheDocument();
   expect(screen.getByTitle('Add Item')).toBeInTheDocument();
 });
 
@@ -31,7 +31,7 @@ it('checks the createItem function is called with the correct values', async () 
 
   const nameInput = screen.getByRole('textbox', { name: 'Name' });
   const categoryInput = screen.getByRole('textbox', { name: 'Category' });
-  const priceInput = screen.getByRole('textbox', { name: 'Price' });
+  const priceInput = screen.getByRole('spinbutton', { name: 'Price' });
   const createButton = screen.getByTitle('Add Item');
 
   fireEvent.change(nameInput, { target: { value: 'Name1' } });
@@ -49,5 +49,5 @@ it('checks the createItem function is called with the correct values', async () 
 
   expect(nameInput).toHaveValue('');
   expect(categoryInput).toHaveValue('');
-  expect(priceInput).toHaveValue('');
+  expect(priceInput).toHaveValue(null);
 });

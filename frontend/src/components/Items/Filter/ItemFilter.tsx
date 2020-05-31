@@ -19,7 +19,7 @@ const ItemFilter = ({ setSearchText }: IPropsType) => {
     <TextField
       id="category-search"
       name="category-search"
-      label="Category"
+      label="Category Filter"
       value={categoryText}
       onChange={e => setCategoryText(e.target.value)}
     />
