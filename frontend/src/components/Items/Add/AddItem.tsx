@@ -34,7 +34,10 @@ const AddItem = ({ createItem }: IPropsType) => {
   const { handleSubmit, register, errors } = useForm<IItem>();
 
   return (
-    <form onSubmit={handleSubmit(createItem)} className={classes.container}>
+    <form
+      onSubmit={handleSubmit(data => createItem(data))}
+      className={classes.container}
+    >
       <FormControl error={!!errors.name}>
         <TextField
           id="item-name"
@@ -68,7 +71,12 @@ const AddItem = ({ createItem }: IPropsType) => {
         {errors.price && <FormHelperText>Required</FormHelperText>}
       </FormControl>
 
-      <IconButton type="submit" color="primary">
+      <IconButton
+        title="Add Item"
+        type="submit"
+        color="primary"
+        data-testid="iconButton"
+      >
         <AddIcon />
       </IconButton>
     </form>
