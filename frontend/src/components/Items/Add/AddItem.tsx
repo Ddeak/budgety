@@ -57,7 +57,7 @@ const AddItem = ({ createItem }: IPropsType) => {
           name="category"
           label="Category"
           className={classes.input}
-          inputRef={register({ required: true })}
+          inputRef={register({ required: true, maxLength: 30 })}
         />
         {errors.category && <FormHelperText>Required</FormHelperText>}
       </FormControl>
@@ -68,6 +68,7 @@ const AddItem = ({ createItem }: IPropsType) => {
           name="price"
           label="Price"
           className={classes.input}
+          type="number"
           inputRef={register({ required: true })}
         />
         {errors.price && <FormHelperText>Required</FormHelperText>}
