@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-micro';
 
 export default gql`
   extend type Query {
-    getItems(category: String): [Item!]
+    getItems(category: String, days: Int): [Item!]
     getItem(_id: ID!): Item
   }
 

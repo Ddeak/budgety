@@ -8,16 +8,21 @@ export default {
   Query: {
     getItems: async (
       parent: any,
-      { category, limit }: { category: IItem['category']; limit?: number },
+      { category, days }: { category: IItem['category']; days?: number },
       { mongoConn }: { mongoConn: mongoose.Connection }
     ): Promise<IItem[]> => {
       const Item: mongoose.Model<IItem> = ItemModel(mongoConn);
       let list: IItem[];
+      const daysBack = days || -30;
 
       let query = category
-        ? Item.find({ category: category.toUpperCase() })
+        ? Item.find({
+            category: category.toUpperCase(),
+            created: {
+              $gte: dayjs().add(daysBack, 'day').toDate(),
+            },
+          })
         : Item.find();
-      if (limit) query.limit(limit);
 
       try {
         list = await query.exec();
