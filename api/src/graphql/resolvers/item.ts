@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import dayjs from 'dayjs';
+
 import ItemModel, { IItem } from '../../mongo/models/item';
 import { ApolloError } from 'apollo-server-micro';
 
@@ -66,6 +68,7 @@ export default {
           name,
           category: category.toUpperCase(),
           price: parsedPrice.toFixed(2),
+          created: dayjs().startOf('day').toDate(),
         });
         return item;
       } catch (err) {
