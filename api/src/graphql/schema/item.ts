@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-micro';
 
 export default gql`
   extend type Query {
-    getAllItems: [Item!]
+    getItems(category: String, days: Int): [Item!]
     getItem(_id: ID!): Item
   }
 
@@ -16,6 +16,6 @@ export default gql`
     name: String!
     category: String!
     price: String!
-    date: DateTime!
+    created: DateTime!
   }
 `;

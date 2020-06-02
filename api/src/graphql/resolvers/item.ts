@@ -1,19 +1,28 @@
-import mongoose from 'mongoose';
+import mongoose, { MongooseFilterQuery } from 'mongoose';
+import dayjs from 'dayjs';
+
 import ItemModel, { IItem } from '../../mongo/models/item';
 import { ApolloError } from 'apollo-server-micro';
 
 export default {
   Query: {
-    getAllItems: async (
+    getItems: async (
       parent: any,
-      args: any,
+      { category, days }: { category: IItem['category']; days?: number },
       { mongoConn }: { mongoConn: mongoose.Connection }
     ): Promise<IItem[]> => {
       const Item: mongoose.Model<IItem> = ItemModel(mongoConn);
       let list: IItem[];
 
+      let filterQuery: MongooseFilterQuery<IItem> = {};
+      if (days)
+        filterQuery.created = {
+          $gte: dayjs().add(-days, 'day').toDate(),
+        };
+      if (category) filterQuery.category = category.toUpperCase();
+
       try {
-        list = await Item.find().exec();
+        list = await Item.find(filterQuery).exec();
       } catch (err) {
         console.error('> getALlItems error: ', err);
         throw new ApolloError('Error retrieving all items');
@@ -52,10 +61,16 @@ export default {
     ): Promise<IItem> => {
       const Item: mongoose.Model<IItem> = ItemModel(mongoConn);
       try {
+        const parsedPrice = Number.parseFloat(price);
+        if (isNaN(parsedPrice)) {
+          throw new ApolloError('Price must be a number');
+        }
+
         const item = await Item.create({
           name,
-          category,
-          price,
+          category: category.toUpperCase(),
+          price: parsedPrice.toFixed(2),
+          created: dayjs().startOf('day').toDate(),
         });
         return item;
       } catch (err) {
