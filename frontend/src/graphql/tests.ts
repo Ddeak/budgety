@@ -4,7 +4,7 @@ export const mocks = [
   {
     request: {
       query: ITEMS_QUERY,
-      variables: { category: '' }
+      variables: { category: '', days: 30 }
     },
     result: {
       data: {
@@ -24,6 +24,7 @@ export const mocks = [
       query: ITEMS_QUERY,
       variables: {
         category: '',
+        days: 30,
         deleteItem: {
           _id: '1'
         }
@@ -40,6 +41,7 @@ export const mocks = [
       query: ITEMS_QUERY,
       variables: {
         category: '',
+        days: 30,
         saveItem: {
           _id: '2',
           name: 'newItem',

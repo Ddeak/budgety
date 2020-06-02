@@ -14,8 +14,10 @@ import styles from './Home.module.scss';
 
 const Home = () => {
   const [searchText, setSearchText] = React.useState<string>('');
+  const [dateRange, setDateRange] = React.useState<30 | 60 | null>(30);
+
   const { loading, error, data, refetch } = useQuery(ITEMS_QUERY, {
-    variables: { category: searchText }
+    variables: { category: searchText, days: dateRange }
   });
 
   const [deleteItem] = useMutation(DELETE_ITEM_MUTATION, {
@@ -28,10 +30,16 @@ const Home = () => {
 
   const onDeleteItem = (_id: string) => deleteItem({ variables: { _id } });
 
+  const onDateRangeChange = (range: 30 | 60 | null) => setDateRange(range);
+
   return (
     <div className={styles.container}>
       <Typography variant="h1">Budgety</Typography>
-      <ItemFilter setSearchText={setSearchText} />
+      <ItemFilter
+        setSearchText={setSearchText}
+        dateRange={dateRange}
+        onDateRangeChange={onDateRangeChange}
+      />
       <ItemList
         loading={loading}
         error={error}

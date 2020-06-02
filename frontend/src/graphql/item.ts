@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
 export const ITEMS_QUERY = gql`
-  query GetItems($category: String) {
-    getItems(category: $category) {
+  query GetItems($category: String, $days: Int) {
+    getItems(category: $category, days: $days) {
       _id
       name
       category

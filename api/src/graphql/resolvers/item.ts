@@ -13,13 +13,12 @@ export default {
     ): Promise<IItem[]> => {
       const Item: mongoose.Model<IItem> = ItemModel(mongoConn);
       let list: IItem[];
-      const daysBack = days || -30;
 
-      let filterQuery: MongooseFilterQuery<IItem> = {
-        created: {
-          $gte: dayjs().add(daysBack, 'day').toDate(),
-        },
-      };
+      let filterQuery: MongooseFilterQuery<IItem> = {};
+      if (days)
+        filterQuery.created = {
+          $gte: dayjs().add(-days, 'day').toDate(),
+        };
       if (category) filterQuery.category = category.toUpperCase();
 
       try {
