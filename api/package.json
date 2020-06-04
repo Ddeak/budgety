@@ -7,6 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server-micro": "^2.14.1",
+    "concurrently": "^5.2.0",
     "dayjs": "^1.8.28",
     "graphql": "^15.0.0",
     "graphql-iso-date": "^3.6.1",
@@ -27,6 +28,7 @@
     "build": "tsc -b",
     "dev": "node -r ts-node/register node_modules/.bin/micro-dev -p 4000 ./src/api/graphql.ts",
     "start": "rm -rf ./dist && yarn run build && micro -p 4000 ./dist/api/graphql.js",
+    "start-conc": "concurrently \"rm -rf ./dist && yarn run build && micro -p 4000 ./dist/api/graphql.js\" \"cd ../frontend && yarn start\"",
     "help": "micro --help"
   }
 }
