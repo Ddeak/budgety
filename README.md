@@ -26,5 +26,7 @@ Basically, the motivation to create this app was: "How much did I spend on take 
 - Run the API via `yarn dev` or `yarn start`
 - Run the frontend via `yarn start` and open a browser tab at: `localhost:3000`
 
-- Alternatively, the api has `concurrently` package included, and the both client and api can be run via a single terminal
+* Alternatively, the api has `concurrently` package included, and the both client and api can be run via a single terminal
   via `yarn start-conc` within the `api` folder.
+
+Run tests via - `yarn test`
