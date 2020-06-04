@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { ApolloError } from 'apollo-boost';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -17,25 +17,30 @@ interface IPropsType {
   onDeleteItem: (id: string) => void;
 }
 
-const useStyles = makeStyles({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '1rem 0',
-    width: '100%'
-  },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '50%'
-  },
-  col: {
-    width: '25%'
-  }
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: theme.spacing(1),
+      width: '100%'
+    },
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      width: '50%'
+    },
+    col: {
+      display: 'flex',
+      justifyContent: 'left',
+      minWidth: '10rem'
+    }
+  })
+);
 
 const ItemListView = ({ loading, error, items, onDeleteItem }: IPropsType) => {
   const classes = useStyles();
@@ -57,7 +62,7 @@ const ItemListView = ({ loading, error, items, onDeleteItem }: IPropsType) => {
         </Typography>
         <Typography variant="h6">Actions</Typography>
       </div>
-      <Divider color="primary" />
+      <Divider variant="middle" />
       {items.map((item: IItem) => (
         <div key={item._id} className={classes.row}>
           <Typography className={classes.col}>{item.name}</Typography>

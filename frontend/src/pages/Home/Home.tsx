@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { useQuery, useMutation } from '@apollo/react-hooks';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import { ItemList, AddItem, ItemFilter } from '../../components/Items';
@@ -10,9 +11,24 @@ import {
   ADD_ITEM_MUTATION
 } from '../../graphql/item';
 import { IItem } from '../../types/item';
-import styles from './Home.module.scss';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      width: '100vw',
+      height: '100vh',
+      background: theme.palette.background.default,
+      color: theme.palette.text.primary
+    }
+  })
+);
 
 const Home = () => {
+  const classes = useStyles();
   const [searchText, setSearchText] = React.useState<string>('');
   const [dateRange, setDateRange] = React.useState<30 | 60 | null>(30);
 
@@ -33,8 +49,9 @@ const Home = () => {
   const onDateRangeChange = (range: 30 | 60 | null) => setDateRange(range);
 
   return (
-    <div className={styles.container}>
-      <Typography variant="h1">Budgety</Typography>
+    <div className={classes.container}>
+      <Typography variant="h2">Budgety</Typography>
+      <AddItem createItem={createItem} />
       <ItemFilter
         setSearchText={setSearchText}
         dateRange={dateRange}
@@ -46,7 +63,6 @@ const Home = () => {
         items={data?.getItems || []}
         onDeleteItem={onDeleteItem}
       />
-      <AddItem createItem={createItem} />
     </div>
   );
 };
